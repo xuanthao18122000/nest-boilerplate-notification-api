@@ -4,6 +4,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Query,
   Res,
   UsePipes,
@@ -14,6 +15,7 @@ import { SendResponse } from 'src/common/response/send-response';
 import {
   CreateNotificationDto,
   ListNotificationDto,
+  UpdateNotificationDto,
 } from './dto/notification-crm.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
@@ -56,5 +58,11 @@ export class NotificationCrmController {
   async createNotification(@Body() body: CreateNotificationDto) {
     await this.notificationCrmService.create(body);
     return SendResponse.success([], 'Create notification successful');
+  }
+
+  @Put()
+  async updateNotification(@Body() body: UpdateNotificationDto) {
+    await this.notificationCrmService.update(body);
+    return SendResponse.success([], 'Update notification successful');
   }
 }

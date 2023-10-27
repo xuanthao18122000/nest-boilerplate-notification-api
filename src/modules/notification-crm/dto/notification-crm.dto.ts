@@ -134,3 +134,45 @@ export class CreateNotificationDto {
   @IsNotEmpty()
   gender: number;
 }
+export class UpdateNotificationDto {
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  title: string;
+
+  @ApiProperty({ example: '' })
+  @Type(() => Number)
+  @IsInt()
+  @IsOptional()
+  category: number;
+
+  @ApiProperty({ example: '' })
+  @Type(() => Number)
+  @IsInt()
+  @IsOptional()
+  typeSchedule: number;
+
+  @ApiProperty({ example: '' })
+  @Type(() => Number)
+  @IsInt()
+  @IsOptional()
+  creatorId: number;
+
+  @ApiProperty({ example: '' })
+  @Type(() => Number)
+  @IsInt()
+  @IsOptional()
+  typeReceiver: number;
+
+  @ApiProperty({ example: '' })
+  @Type(() => Number)
+  @IsInt()
+  @IsOptional()
+  status: number;
+
+  @ApiProperty({})
+  @Type(() => Number)
+  // @IsEnum(Notification.GENDER_Notification)
+  @IsOptional()
+  gender: number;
+}

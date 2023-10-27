@@ -4,8 +4,9 @@ import { NotificationCard } from 'src/database/entities';
 import { Repository } from 'typeorm';
 import * as ExcelJS from 'exceljs';
 import {
-  CreateNotificationDto,
-  ListNotificationDto,
+  ListNotificationsDto,
+  SignOutFireBaseDto,
+  SignUpFireBaseDto,
 } from './dto/notification-app.dto';
 import { throwHttpException } from 'src/common/exceptions/throw.exception';
 import { listResponse } from 'src/common/response/response-list.response';
@@ -15,13 +16,14 @@ import FilterBuilder from 'src/common/filter-builder/filter-builder.service';
 export class NotificationAppService {
   constructor(
     @InjectRepository(NotificationCard)
-    private notifyRepo: Repository<NotificationCard>,
+    private notificationCardRepo: Repository<NotificationCard>,
+    
   ) {}
 
-  async getAll(query: ListNotificationDto) {
+  async getListNotifications(query: ListNotificationsDto) {
     const { page = 1, perPage = 10 } = query;
     const entity = {
-      entityRepo: this.notifyRepo,
+      entityRepo: this.notificationCardRepo,
       alias: 'notification',
     };
     const select = [
@@ -45,7 +47,7 @@ export class NotificationAppService {
 
     const filterBuilder = new FilterBuilder<
       NotificationCard,
-      ListNotificationDto
+      ListNotificationsDto
     >(entity, query)
       .addSelect(select)
       .addNumber('category')
@@ -78,18 +80,23 @@ export class NotificationAppService {
     return notificationCard.serialize();
   }
 
-  async create(body: CreateNotificationDto) {
-    const { title } = body;
-
-    const notificationCard = this.notifyRepo.create({
-      title,
-    });
-
-    return await this.notifyRepo.save(notificationCard);
+  async signUpFirebase(body: SignUpFireBaseDto) {
+    console.log(body);
+  }
+  async signOutFirebase(body: SignOutFireBaseDto) {
+    console.log(body);
   }
 
+  async countUnreadNotifications() {}
+
+  async getTotalNewsNotify() {}
+
+  async readAllNotifications() {}
+
+  async readOneNotification() {}
+
   async findNotificationCardByPk(id: number): Promise<NotificationCard> {
-    const notification = await this.notifyRepo.findOneBy({ id });
+    const notification = await this.notificationCardRepo.findOneBy({ id });
     if (!notification) {
       throwHttpException(HttpStatus.NOT_FOUND, 'NOTIFY_NOT_FOUND');
     }

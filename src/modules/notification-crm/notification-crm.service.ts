@@ -6,6 +6,7 @@ import * as ExcelJS from 'exceljs';
 import {
   CreateNotificationDto,
   ListNotificationDto,
+  UpdateNotificationDto,
 } from './dto/notification-crm.dto';
 import { throwHttpException } from 'src/common/exceptions/throw.exception';
 import { listResponse } from 'src/common/response/response-list.response';
@@ -79,6 +80,16 @@ export class NotificationCrmService {
   }
 
   async create(body: CreateNotificationDto) {
+    const { title } = body;
+
+    const notificationCard = this.notifyRepo.create({
+      title,
+    });
+
+    return await this.notifyRepo.save(notificationCard);
+  }
+
+  async update(body: UpdateNotificationDto) {
     const { title } = body;
 
     const notificationCard = this.notifyRepo.create({

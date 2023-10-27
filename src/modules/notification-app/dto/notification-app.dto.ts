@@ -9,37 +9,37 @@ import {
 } from 'class-validator';
 import { BaseFilter } from 'src/common/filter-builder/custom-base.filter';
 
-export class ListNotificationDto extends BaseFilter {
+export class ListNotificationsDto extends BaseFilter {
   @ApiProperty({ required: false })
   @IsString()
   @IsOptional()
   title: string;
 
-  @ApiProperty({ example: '' })
+  @ApiProperty({ example: '', required: false })
   @Type(() => Number)
   @IsInt()
   @IsNotEmpty()
   category: number;
 
-  @ApiProperty({ example: '' })
+  @ApiProperty({ example: '', required: false })
   @Type(() => Number)
   @IsInt()
   @IsNotEmpty()
   typeSchedule: number;
 
-  @ApiProperty({ example: '' })
+  @ApiProperty({ example: '', required: false })
   @Type(() => Number)
   @IsInt()
   @IsNotEmpty()
   creatorId: number;
 
-  @ApiProperty({ example: '' })
+  @ApiProperty({ example: '', required: false })
   @Type(() => Number)
   @IsInt()
   @IsNotEmpty()
   typeReceiver: number;
 
-  @ApiProperty({ example: '' })
+  @ApiProperty({ example: '', required: false })
   @Type(() => Number)
   @IsInt()
   @IsNotEmpty()
@@ -92,45 +92,16 @@ export class ListNotificationDto extends BaseFilter {
   download?: boolean;
 }
 
-export class CreateNotificationDto {
+export class SignUpFireBaseDto {
   @ApiProperty({ required: false })
   @IsString()
   @IsOptional()
-  title: string;
+  token: string;
+}
 
-  @ApiProperty({ example: '' })
-  @Type(() => Number)
-  @IsInt()
-  @IsNotEmpty()
-  category: number;
-
-  @ApiProperty({ example: '' })
-  @Type(() => Number)
-  @IsInt()
-  @IsNotEmpty()
-  typeSchedule: number;
-
-  @ApiProperty({ example: '' })
-  @Type(() => Number)
-  @IsInt()
-  @IsNotEmpty()
-  creatorId: number;
-
-  @ApiProperty({ example: '' })
-  @Type(() => Number)
-  @IsInt()
-  @IsNotEmpty()
-  typeReceiver: number;
-
-  @ApiProperty({ example: '' })
-  @Type(() => Number)
-  @IsInt()
-  @IsNotEmpty()
-  status: number;
-
-  @ApiProperty({})
-  @Type(() => Number)
-  // @IsEnum(Notification.GENDER_Notification)
-  @IsNotEmpty()
-  gender: number;
+export class SignOutFireBaseDto {
+  @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  token: string;
 }
